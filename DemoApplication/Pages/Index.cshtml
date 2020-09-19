@@ -1,0 +1,49 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="row">
+    <table class="table table-bordered" id="taskTable">
+        <thead>
+            <tr>
+                <th>UserId</th>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Completed</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#taskTable").DataTable({
+            "processing": true,
+            "paging": false,
+            "serverSide": true,
+            "filter": false,     
+            "orderMulti": false,     
+            "ajax": {
+                "url": "/api/Task",
+                "type": "GET",
+                "datatype": "json"
+            },
+            "columnDefs": [{
+                "targets": [0],
+                "visible": false,
+                "searchable": false
+            }], 
+            "columns": [
+                { "data": "userId", "name": "UserId", "autoWidth": true },
+                { "data": "id", "name": "Id", "autoWidth": true },
+                { "data": "title", "name": "Title", "autoWidth": true },
+                { "data": "completed", "name": "Completed", "autoWidth": true }                            
+            ]  
+  
+        });         
+    });
+</script>  
